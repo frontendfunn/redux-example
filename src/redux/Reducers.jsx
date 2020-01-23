@@ -1,9 +1,15 @@
 import { TODO } from './Constants';
+import keyBy from 'lodash.keyby';
+
 /**
  * Initial Todo State Containing `Array Of Todos[]`
  */
+
+const TodosArray = createTodos(100);
+
 const TodosState = {
-  todos: createTodos(5000)
+  todosById: keyBy(TodosArray, todo => todo.id),
+  todoIds: TodosArray.map(todo => todo.id)
 };
 
 const TodosReducer = (state = TodosState, action) => {
@@ -18,11 +24,13 @@ const TodosReducer = (state = TodosState, action) => {
        */
       return {
         ...state,
-        todos: state.todos.map(todo =>
-          todo.id === action.payload
-            ? { ...todo, isCompleted: !todo.isCompleted }
-            : todo
-        )
+        todosById: {
+          ...state.todosById,
+          [action.payload]: {
+            ...state.todosById[action.payload],
+            isCompleted: !state.todosById[action.payload].isCompleted
+          }
+        }
       };
     default:
       return state;

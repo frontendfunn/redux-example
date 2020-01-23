@@ -4,12 +4,12 @@ import TodoItem from './TodoItem';
 
 class TodoList extends React.Component {
   render() {
-    const { TodosArray } = this.props;
+    const { TodoIds } = this.props;
     console.log('RENDER CALL - Todo List');
     return (
       <div>
-        {TodosArray.map(todo => (
-          <TodoItem key={todo.id} todo={todo} />
+        {TodoIds.map(todoId => (
+          <TodoItem key={todoId} todoId={todoId} />
         ))}
       </div>
     );
@@ -17,6 +17,6 @@ class TodoList extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  TodosArray: state.todos
+  TodoIds: state.todoIds
 });
 export default connect(mapStateToProps)(TodoList);

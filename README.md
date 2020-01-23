@@ -1,3 +1,3 @@
 ## TodoList with Redux
 
-`TodosState` containes Array Of Todo Items
+`TodosState` is refactored as `TodosById` and `TodoIds`

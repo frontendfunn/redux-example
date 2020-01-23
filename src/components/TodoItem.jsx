@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 class TodoItem extends React.Component {
   render() {
-    const { toggle } = this.props;
-    const { id, isCompleted } = this.props.todo;
+    const { toggle, todo } = this.props;
+    const { id, isCompleted } = todo;
     console.log('RENDER CALL - TodoItem');
     return (
       <div className="todo-item">
@@ -15,7 +15,10 @@ class TodoItem extends React.Component {
     );
   }
 }
+const mapStateToProps = (state, ownProps) => ({
+  todo: state.todosById[ownProps.todoId]
+});
 const mapDispatchToProps = dispatch => ({
   toggle: todoId => dispatch({ type: TODO.TOGGLE, payload: todoId })
 });
-export default connect(null, mapDispatchToProps)(TodoItem);
+export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);
